@@ -3,7 +3,7 @@ const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
   SPREADSHEET_ID,
-  SPREADSHEET_SHEET_ANALYTICS
+  SPREADSHEET_SHEET_TITLE
 } = process.env;
 
 exports.handler = async (event, context) => {
@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
     SPREADSHEET_ID &&
-    SPREADSHEET_SHEET_ANALYTICS
+    SPREADSHEET_SHEET_TITLE
   ) {
     try {
       // google-spreadsheet
@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
       await doc.loadInfo();
 
       // sheet
-      const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_ANALYTICS];
+      const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_TITLE];
 
       // get rows
       const rows = await sheet.getRows();
@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
     }
   } else {
     console.log(
-      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_ANALYTICS`
+      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_TITLE`
     );
   }
 };
