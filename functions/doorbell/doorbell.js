@@ -3,7 +3,7 @@ const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
   SPREADSHEET_ID,
-  SPREADSHEET_SHEET_TITLE
+  SPREADSHEET_SHEET_ANALYTICS
 } = process.env;
 
 exports.handler = async (event, context) => {
@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
     SPREADSHEET_ID &&
-    SPREADSHEET_SHEET_TITLE
+    SPREADSHEET_SHEET_ANALYTICS
   ) {
     try {
       // netlify
@@ -49,14 +49,14 @@ exports.handler = async (event, context) => {
       await doc.loadInfo();
 
       // store
-      const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_TITLE];
+      const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_ANALYTICS];
       const addedRow = await sheet.addRow(row);
     } catch (error) {
       console.error(`[ERROR]`, error);
     }
   } else {
     console.log(
-      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_TITLE`
+      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_ANALYTICS`
     );
   }
 
