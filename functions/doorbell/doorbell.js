@@ -75,7 +75,7 @@ exports.handler = async (event, context) => {
       console.error(`[ERROR]`, error);
     }
   } else {
-    console.log(
+    console.error(
       `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_TITLE && APEX_DOMAIN`
     );
   }
