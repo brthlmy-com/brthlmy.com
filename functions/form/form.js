@@ -1,22 +1,24 @@
-const { GoogleSpreadsheet } = require("google-spreadsheet");
+const {GoogleSpreadsheet} = require('google-spreadsheet');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
   SPREADSHEET_ID,
   SPREADSHEET_SHEET_FORM_TITLE,
-  APEX_DOMAIN
+  APEX_DOMAIN,
 } = process.env;
 
-const REDIRECT_URL_SUCCESS = ['https://',APEX_DOMAIN, 'success.html'].join('/')
+const REDIRECT_URL_SUCCESS = ['https://', APEX_DOMAIN, 'success.html'].join(
+  '/',
+);
 
 function redirectUrl(url) {
   return {
     statusCode: 302,
     headers: {
       Location: url,
-      "Cache-Control": "no-cache"
+      'Cache-Control': 'no-cache',
     },
-    body: JSON.stringify({})
+    body: JSON.stringify({}),
   };
 }
 
@@ -30,12 +32,12 @@ function redirectUrl(url) {
 // queryStringToJSON("variable=string&param=some")
 // => { variable: 'string', 'param': 'some' }
 function queryStringToJSON(input) {
-  var pairs = input.split("&");
+  var pairs = input.split('&');
 
   var result = {};
   pairs.forEach(function(pair) {
-    pair = pair.split("=");
-    result[pair[0]] = decodeURIComponent(pair[1] || "");
+    pair = pair.split('=');
+    result[pair[0]] = decodeURIComponent(pair[1] || '');
   });
 
   return JSON.parse(JSON.stringify(result));
@@ -49,16 +51,16 @@ exports.handler = async (event, context) => {
     SPREADSHEET_SHEET_FORM_TITLE &&
     APEX_DOMAIN
   ) {
-    if (!event.body || event.httpMethod !== "POST") {
+    if (!event.body || event.httpMethod !== 'POST') {
       return {
         statusCode: 400,
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Content-Type"
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
         },
         body: JSON.stringify({
-          status: "invalid-method"
-        })
+          status: 'invalid-method',
+        }),
       };
     }
 
@@ -66,44 +68,48 @@ exports.handler = async (event, context) => {
       // form
       const timestamp = new Date().toISOString();
 
-      const { headers: eventHeaders, body: formData } = event;
-      const { host } = eventHeaders;
+      const {headers: eventHeaders, body: formData} = event;
+      const {host} = eventHeaders;
 
       const {
         referer = `https://${host}`,
-        "user-agent": ua,
-        "x-language": locale,
-        "x-country": country
+        'user-agent': ua,
+        'x-language': locale,
+        'x-country': country,
       } = eventHeaders;
 
       // block request, based on referer
-      const { host: hostReferer } = new URL(referer);
-      const refererApexDomain = hostReferer.replace("www.", "");
+      const {host: hostReferer} = new URL(referer);
+      const refererApexDomain = hostReferer.replace('www.', '');
 
       if (refererApexDomain !== APEX_DOMAIN) {
         return {
           statusCode: 418,
-          body: JSON.stringify({ status: "I'm a teapot" })
+          body: JSON.stringify({status: "I'm a teapot"}),
         };
       }
 
-      const { "form-name": formName } = queryStringToJSON(formData);
+      const {'form-name': formName, ...formFields} = queryStringToJSON(
+        formData,
+      );
 
       const row = {
         timestamp,
         formName,
-        formData,
+        formData: {
+          ...formFields,
+        },
         country,
         locale,
-        ua
+        ua,
       };
 
       // google-spreadsheet
       const client_email = GOOGLE_SERVICE_ACCOUNT_EMAIL;
-      const private_key = GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n");
+      const private_key = GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
 
       const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
-      await doc.useServiceAccountAuth({ client_email, private_key });
+      await doc.useServiceAccountAuth({client_email, private_key});
       await doc.loadInfo();
 
       // store
@@ -114,13 +120,13 @@ exports.handler = async (event, context) => {
       return {
         statusCode: error.statusCode || 500,
         body: JSON.stringify({
-          error: error.message
-        })
+          error: error.message,
+        }),
       };
     }
   } else {
     console.log(
-      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_FORM_TITLE && APEX_DOMAIN`
+      `[ENV] GOOGLE_SERVICE_ACCOUNT_EMAIL && GOOGLE_PRIVATE_KEY && SPREADSHEET_ID && SPREADSHEET_SHEET_FORM_TITLE && APEX_DOMAIN`,
     );
   }
 
