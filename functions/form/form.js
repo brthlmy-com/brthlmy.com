@@ -89,16 +89,12 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const {'form-name': formName, ...formFields} = queryStringToJSON(
-        formData,
-      );
+      const {'form-name': formName} = queryStringToJSON(formData);
 
       const row = {
         timestamp,
         formName,
-        formData: {
-          ...formFields,
-        },
+        formData,
         country,
         locale,
         ua,
