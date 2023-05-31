@@ -49,24 +49,19 @@ exports.handler = async (event, context) => {
         pathname: page,
         search,
         hash,
-        timezone,
-        language,
-        userAgent,
         screen,
-        brands,
+        timezone,
         platform,
+        brands,
         time,
       } = eventParams;
 
       const params = JSON.stringify({
         search,
-        country,
         timezone,
-        language,
-        userAgent,
+        platform,
         screen,
         brands,
-        platform,
         time,
       });
 
