@@ -1,10 +1,13 @@
 const {GoogleSpreadsheet} = require('google-spreadsheet');
+const {Telegram} = require('@brthlmy/serverless-telegram-notifier');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
   SPREADSHEET_ID,
   SPREADSHEET_SHEET_FORM_TITLE,
   APEX_DOMAIN,
+  TG_TOKEN,
+  TG_CHAT,
 } = process.env;
 
 const REDIRECT_URL_SUCCESS = ['https://', APEX_DOMAIN, 'success.html'].join(
@@ -111,6 +114,19 @@ exports.handler = async (event, context) => {
       // store
       const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_FORM_TITLE];
       const addedRow = await sheet.addRow(row);
+
+      // initialize with authorization access token for telegram bot
+      const telegram = new Telegram({
+        accessToken: TG_TOKEN,
+      });
+
+      await telegram.sendMessage({
+        chat_id: TG_CHAT,
+        text: `${timestamp} <br> ${formName} <br> ${formData} <br> ${country} <br> ${locale} <br> ${ua} `,
+        parse_mode: 'HTML',
+        disable_notification: true,
+        disable_web_page_preview: true,
+      });
     } catch (error) {
       console.error(error);
       return {
