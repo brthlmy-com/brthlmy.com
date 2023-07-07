@@ -1,5 +1,6 @@
-const {GoogleSpreadsheet} = require('google-spreadsheet');
-const {Telegram} = require('@brthlmy/serverless-telegram-notifier');
+import {GoogleSpreadsheet} from 'google-spreadsheet';
+import {Telegram} from '@brthlmy/serverless-telegram-notifier';
+
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
