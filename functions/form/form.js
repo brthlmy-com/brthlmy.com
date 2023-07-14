@@ -122,7 +122,7 @@ exports.handler = async (event, context) => {
 
       const message = await telegram.sendMessage({
         chat_id: TG_CHAT,
-        text: `${timestamp} <br> ${formName} <br> ${formData} <br> ${country} <br> ${locale} <br> ${ua} `,
+        text: `${timestamp} \n ${formName} \n ${formData} \n ${country} - ${locale} \n ${ua} `,
         parse_mode: 'HTML',
         disable_notification: true,
         disable_web_page_preview: true,
