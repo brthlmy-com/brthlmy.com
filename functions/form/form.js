@@ -1,5 +1,5 @@
 const Telegram = (...args) => import('@brthlmy/serverless-telegram-notifier').then(({default: Telegram}) => Telegram(...args));
-const GoogleSpreadsheet = require('google-spreadsheet');
+const GoogleSpreadsheet = (...args) => import('google-spreadsheet').then(({default: GoogleSpreadsheet}) => GoogleSpreadsheet(...args));
 
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
