@@ -1,3 +1,4 @@
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
@@ -48,7 +49,6 @@ exports.handler = async (event, context) => {
   const {default: Telegram} = await import(
     '@brthlmy/serverless-telegram-notifier'
   );
-  const {default: GoogleSpreadsheet} = await import('google-spreadsheet');
   if (
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
