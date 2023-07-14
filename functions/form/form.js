@@ -1,5 +1,5 @@
-import {GoogleSpreadsheet} from 'google-spreadsheet';
-import {Telegram} from '@brthlmy/serverless-telegram-notifier';
+const Telegram = require('@brthlmy/serverless-telegram-notifier');
+const GoogleSpreadsheet = require('google-spreadsheet');
 
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -47,7 +47,7 @@ function queryStringToJSON(input) {
   return JSON.parse(JSON.stringify(result));
 }
 
-export async function handler(event, context) {
+exports.handler = async (event, context) => {
   if (
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
