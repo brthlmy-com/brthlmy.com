@@ -102,17 +102,17 @@ exports.handler = async (event, context) => {
 
       const messageFieldsValues = Object.entries(restFormData)
         .map(item => `<b>${item[0]}</b>: ${item[1]}`)
-        .join('\n');
+        .join('\n')
+        .slice(0, 1000);
 
       const message = await telegram.sendMessage({
         chat_id: TG_CHAT,
-        text: `${APEX_DOMAIN} #(${addedRow._rowNumber})\nTime: ${timestamp} \nForm: ${formName} \n${messageFieldsValues} \n\nCountry:${country} - ${locale}\n`,
+        text: `${APEX_DOMAIN} #(${addedRow._rowNumber})\n${timestamp}\n\nForm: ${formName}\n${messageFieldsValues}\n\nCountry:${country} (${locale})\n`,
         parse_mode: 'HTML',
         disable_notification: true,
         disable_web_page_preview: true,
       });
 
-      console.log('debug', message, addedRow);
     } catch (error) {
       console.error(error);
       return {
