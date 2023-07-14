@@ -1,6 +1,5 @@
-const Telegram = (...args) => import('@brthlmy/serverless-telegram-notifier').then(({default: Telegram}) => Telegram(...args));
-const GoogleSpreadsheet = (...args) => import('google-spreadsheet').then(({default: GoogleSpreadsheet}) => GoogleSpreadsheet(...args));
-
+const { default: Telegram } = await import('@brthlmy/serverless-telegram-notifier');
+const { default: GoogleSpreadsheet  } = await import('google-spreadsheet');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
