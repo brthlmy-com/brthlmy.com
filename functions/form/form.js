@@ -1,4 +1,5 @@
 const {GoogleSpreadsheet} = require('google-spreadsheet');
+const qs = require('qs');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
@@ -120,9 +121,14 @@ exports.handler = async (event, context) => {
         accessToken: TG_TOKEN,
       });
 
+      const parsedFormData = qs.parse(formData);
+      const messageFieldsValues = Object.entries(parsedFormData)
+        .map(item => `<b>${item[0]}</b>: ${item[1]}`)
+        .join('\n');
+
       const message = await telegram.sendMessage({
         chat_id: TG_CHAT,
-        text: `${timestamp} \n ${formName} \n ${formData} \n ${country} - ${locale} \n ${ua} `,
+        text: `${APEX_DOMAIN} on ${timestamp} \n Form: ${formName} \n ${messageFieldsValues} \n ${country} - ${locale} \n ${ua} `,
         parse_mode: 'HTML',
         disable_notification: true,
         disable_web_page_preview: true,
