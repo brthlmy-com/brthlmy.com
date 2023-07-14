@@ -46,7 +46,7 @@ function queryStringToJSON(input) {
 }
 
 exports.handler = async (event, context) => {
-  const {default: Telegram} = await import(
+  const {Telegram} = await import(
     '@brthlmy/serverless-telegram-notifier'
   );
   if (
