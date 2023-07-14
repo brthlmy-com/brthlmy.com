@@ -47,7 +47,7 @@ function queryStringToJSON(input) {
   return JSON.parse(JSON.stringify(result));
 }
 
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   if (
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&

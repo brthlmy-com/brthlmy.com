@@ -1,3 +1,5 @@
 [build]
   publish = "site"
   functions = "functions"
+[functions.form]
+  node_bundler = "esbuild"
