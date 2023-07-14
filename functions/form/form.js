@@ -1,4 +1,4 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet');
+const {GoogleSpreadsheet} = require('google-spreadsheet');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
@@ -46,9 +46,7 @@ function queryStringToJSON(input) {
 }
 
 exports.handler = async (event, context) => {
-  const {Telegram} = await import(
-    '@brthlmy/serverless-telegram-notifier'
-  );
+  const {Telegram} = await import('@brthlmy/serverless-telegram-notifier');
   if (
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
@@ -122,13 +120,15 @@ exports.handler = async (event, context) => {
         accessToken: TG_TOKEN,
       });
 
-      await telegram.sendMessage({
+      const message = await telegram.sendMessage({
         chat_id: TG_CHAT,
         text: `${timestamp} <br> ${formName} <br> ${formData} <br> ${country} <br> ${locale} <br> ${ua} `,
         parse_mode: 'HTML',
         disable_notification: true,
         disable_web_page_preview: true,
       });
+
+      console.log('debug', message, addedRow);
     } catch (error) {
       console.error(error);
       return {
