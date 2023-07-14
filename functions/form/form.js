@@ -1,10 +1,13 @@
 const {GoogleSpreadsheet} = require('google-spreadsheet');
+const qs = require('qs');
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
   SPREADSHEET_ID,
   SPREADSHEET_SHEET_FORM_TITLE,
   APEX_DOMAIN,
+  TG_TOKEN,
+  TG_CHAT,
 } = process.env;
 
 const REDIRECT_URL_SUCCESS = ['https://', APEX_DOMAIN, 'success.html'].join(
@@ -22,28 +25,8 @@ function redirectUrl(url) {
   };
 }
 
-// https://www.developerdrive.com/turning-the-querystring-into-a-json-object-using-javascript/
-// Converts a queryString to a json object
-//
-// @param {string} input - A query string
-// @returns {json} Returns a json object
-//
-// @example
-// queryStringToJSON("variable=string&param=some")
-// => { variable: 'string', 'param': 'some' }
-function queryStringToJSON(input) {
-  var pairs = input.split('&');
-
-  var result = {};
-  pairs.forEach(function(pair) {
-    pair = pair.split('=');
-    result[pair[0]] = decodeURIComponent(pair[1] || '');
-  });
-
-  return JSON.parse(JSON.stringify(result));
-}
-
 exports.handler = async (event, context) => {
+  const {Telegram} = await import('@brthlmy/serverless-telegram-notifier');
   if (
     GOOGLE_SERVICE_ACCOUNT_EMAIL &&
     GOOGLE_PRIVATE_KEY &&
@@ -89,12 +72,12 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const {'form-name': formName} = queryStringToJSON(formData);
+      const {'form-name': formName, ...restFormData} = qs.parse(formData);
 
       const row = {
         timestamp,
         formName,
-        formData,
+        formData: JSON.stringify(restFormData),
         country,
         locale,
         ua,
@@ -111,6 +94,25 @@ exports.handler = async (event, context) => {
       // store
       const sheet = doc.sheetsByTitle[SPREADSHEET_SHEET_FORM_TITLE];
       const addedRow = await sheet.addRow(row);
+
+      // initialize with authorization access token for telegram bot
+      const telegram = new Telegram({
+        accessToken: TG_TOKEN,
+      });
+
+      const messageFieldsValues = Object.entries(restFormData)
+        .map(item => `<b>${item[0]}</b>: ${item[1]}`)
+        .join('\n')
+        .slice(0, 1000);
+
+      const message = await telegram.sendMessage({
+        chat_id: TG_CHAT,
+        text: `${APEX_DOMAIN} #(${addedRow._rowNumber})\n${timestamp}\n\nForm: ${formName}\n${messageFieldsValues}\n\nCountry:${country} (${locale})\n`,
+        parse_mode: 'HTML',
+        disable_notification: true,
+        disable_web_page_preview: true,
+      });
+
     } catch (error) {
       console.error(error);
       return {

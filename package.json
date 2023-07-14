@@ -1,10 +1,12 @@
 {
-  "name": "@brthlmycom",
+  "name": "@brthlmycom/netlify-brthlmy-com",
   "version": "1.0.0",
   "description": "",
   "author": "brthlmy.com@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "google-spreadsheet": "^3.2.0"
+    "@brthlmy/serverless-telegram-notifier": "https://github.com/brthlmy-com/serverless-telegram-notifier.git",
+    "google-spreadsheet": "^3.3.0",
+    "qs": "^6.11.2"
   }
 }

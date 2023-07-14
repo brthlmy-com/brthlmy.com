@@ -1,4 +1,4 @@
-const {GoogleSpreadsheet} = require('google-spreadsheet');
+import {GoogleSpreadsheet} from 'google-spreadsheet';
 const {
   GOOGLE_SERVICE_ACCOUNT_EMAIL,
   GOOGLE_PRIVATE_KEY,
