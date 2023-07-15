@@ -7,13 +7,18 @@ const {
 } = process.env;
 
 exports.handler = async (event, context) => {
-  const {handler} = await import('@brthlmy/serverless-netlify-doorbell');
-  const result = await handler(event, {
-    googleServiceAccountEmail: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    googlePrivateKey: GOOGLE_PRIVATE_KEY,
-    spreadsheetId: SPREADSHEET_ID,
-    spreadsheetSheetTitle: SPREADSHEET_SHEET_TITLE,
-    apexDomain: APEX_DOMAIN,
-  });
-  return result;
+  try {
+    const {handler} = await import('@brthlmy/serverless-netlify-doorbell');
+    const result = await handler(event, {
+      googleServiceAccountEmail: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      googlePrivateKey: GOOGLE_PRIVATE_KEY,
+      spreadsheetId: SPREADSHEET_ID,
+      spreadsheetSheetTitle: SPREADSHEET_SHEET_TITLE,
+      apexDomain: APEX_DOMAIN,
+    });
+    console.log(result);
+    return result;
+  } catch(e) {
+    console.log(e);
+  }
 };
