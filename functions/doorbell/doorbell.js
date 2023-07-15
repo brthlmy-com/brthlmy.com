@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
       spreadsheetSheetTitle: SPREADSHEET_SHEET_TITLE,
       apexDomain: APEX_DOMAIN,
     });
-    console.log(result);
+    console.log(result,'x');
     return result;
   } catch(e) {
     console.log('debug',e);
