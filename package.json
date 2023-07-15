@@ -7,7 +7,6 @@
   "dependencies": {
     "@brthlmy/serverless-netlify-doorbell": "https://github.com/brthlmy-com/serverless-netlify-doorbell.git",
     "@brthlmy/serverless-telegram-notifier": "https://github.com/brthlmy-com/serverless-telegram-notifier.git",
-    "google-spreadsheet": "^3.3.0",
     "qs": "^6.11.2"
   }
 }
