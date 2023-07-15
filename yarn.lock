@@ -3,8 +3,8 @@
 
 
 "@brthlmy/serverless-netlify-doorbell@https://github.com/brthlmy-com/serverless-netlify-doorbell.git":
-  version "1.0.1"
-  resolved "https://github.com/brthlmy-com/serverless-netlify-doorbell.git#c4d73c488eb429044fc7c8ab720b2686e3b305bd"
+  version "1.0.2"
+  resolved "https://github.com/brthlmy-com/serverless-netlify-doorbell.git#1b1f877c5d8f853ee44c287a10cad4c2072558cf"
   dependencies:
     google-auth-library "^8.9.0"
     google-spreadsheet "^4.0.2"
