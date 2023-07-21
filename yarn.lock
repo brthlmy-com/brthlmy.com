@@ -9,6 +9,14 @@
     google-auth-library "^8.9.0"
     google-spreadsheet "^4.0.2"
 
+"@brthlmy/serverless-netlify-form@https://github.com/brthlmy-com/serverless-netlify-form.git":
+  version "0.0.1"
+  resolved "https://github.com/brthlmy-com/serverless-netlify-form.git#bf55660abba43967331d152905e3867dce409f94"
+  dependencies:
+    google-auth-library "^8.9.0"
+    google-spreadsheet "^4.0.2"
+    qs "^6.11.2"
+
 "@brthlmy/serverless-telegram-notifier@https://github.com/brthlmy-com/serverless-telegram-notifier.git":
   version "1.0.0"
   resolved "https://github.com/brthlmy-com/serverless-telegram-notifier.git#772e3196b198b260ab45825d3b65721de8c6e1c5"
