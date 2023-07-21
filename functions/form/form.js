@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
       googleServiceAccountEmail: GOOGLE_SERVICE_ACCOUNT_EMAIL,
       googlePrivateKey: GOOGLE_PRIVATE_KEY,
       spreadsheetId: SPREADSHEET_ID,
-      spreadsheetSheetTitle: SPREADSHEET_SHEET_TITLE,
+      spreadsheetSheetTitle: SPREADSHEET_SHEET_FORM_TITLE,
       apexDomain: APEX_DOMAIN,
     });
 
