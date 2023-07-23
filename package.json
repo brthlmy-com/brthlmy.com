@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@brthlmy/serverless-netlify-doorbell": "https://github.com/brthlmy-com/serverless-netlify-doorbell.git",
-    "@brthlmy/serverless-telegram-notifier": "https://github.com/brthlmy-com/serverless-telegram-notifier.git",
-    "qs": "^6.11.2"
+    "@brthlmy/serverless-netlify-form": "https://github.com/brthlmy-com/serverless-netlify-form.git",
+    "@brthlmy/serverless-telegram-notifier": "https://github.com/brthlmy-com/serverless-telegram-notifier.git"
   }
 }
