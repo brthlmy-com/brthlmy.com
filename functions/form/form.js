@@ -19,21 +19,21 @@ exports.handler = async (event, context) => {
       apexDomain: APEX_DOMAIN,
     });
 
-    const {Telegram} = await import('@brthlmy/serverless-telegram-notifier');
-    // initialize with authorization access token for telegram bot
-    const telegram = new Telegram({
-      accessToken: TG_TOKEN,
-    });
+    if (result.message) {
+      const {Telegram} = await import('@brthlmy/serverless-telegram-notifier');
+      const telegram = new Telegram({
+        accessToken: TG_TOKEN,
+      });
 
-    const message = await telegram.sendMessage({
-      chat_id: TG_CHAT,
-      text: `${APEX_DOMAIN} new message!`,
-      parse_mode: 'HTML',
-      disable_notification: true,
-      disable_web_page_preview: true,
-    });
-
-    return result;
+      const message = await telegram.sendMessage({
+        chat_id: TG_CHAT,
+        text: `${APEX_DOMAIN}\n\n${result.message}`,
+        parse_mode: 'HTML',
+        disable_notification: true,
+        disable_web_page_preview: true,
+      });
+    }
+    return result.redirectResponse;
   } catch (e) {
     console.log('debug', e);
   }
