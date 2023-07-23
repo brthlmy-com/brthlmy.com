@@ -4,14 +4,14 @@
 
 "@brthlmy/serverless-netlify-doorbell@https://github.com/brthlmy-com/serverless-netlify-doorbell.git":
   version "1.0.5"
-  resolved "https://github.com/brthlmy-com/serverless-netlify-doorbell.git#53f2ffd39ad75a8d80e030c17d2361869c698613"
+  resolved "https://github.com/brthlmy-com/serverless-netlify-doorbell.git#2ea3274af26bfca02d090b3183ceab21c179767f"
   dependencies:
     google-auth-library "^8.9.0"
     google-spreadsheet "^4.0.2"
 
 "@brthlmy/serverless-netlify-form@https://github.com/brthlmy-com/serverless-netlify-form.git":
-  version "0.0.1"
-  resolved "https://github.com/brthlmy-com/serverless-netlify-form.git#bf55660abba43967331d152905e3867dce409f94"
+  version "0.1.0"
+  resolved "https://github.com/brthlmy-com/serverless-netlify-form.git#348cae9d07d29f17f9368e4180b42002be6a5948"
   dependencies:
     google-auth-library "^8.9.0"
     google-spreadsheet "^4.0.2"
